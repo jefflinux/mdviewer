@@ -1,0 +1,32 @@
+.wrapper {
+  position: relative;
+}
+
+.copyBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.wrapper:hover .copyBtn {
+  opacity: 1;
+}
+
+.copyBtn:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+}
+
+.copied {
+  color: var(--color-success);
+}

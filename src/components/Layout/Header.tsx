@@ -1,0 +1,73 @@
+import type { ViewMode } from '../../types';
+import styles from './Header.module.css';
+
+interface HeaderProps {
+  filename: string;
+  viewMode: ViewMode;
+  tocOpen: boolean;
+  onViewModeChange: (mode: ViewMode) => void;
+  onOpenFile: () => void;
+  onToggleToc: () => void;
+  onExportPdf: () => void;
+  onExportHtml: () => void;
+}
+
+export function Header({
+  filename,
+  viewMode,
+  tocOpen,
+  onViewModeChange,
+  onOpenFile,
+  onToggleToc,
+  onExportPdf,
+  onExportHtml,
+}: HeaderProps) {
+  return (
+    <header className={styles.header}>
+      <span className={styles.logo}>MD Viewer</span>
+      <span className={styles.filename}>{filename}</span>
+      <div className={styles.spacer} />
+
+      <div className={styles.viewToggle}>
+        <button
+          className={`${styles.viewBtn} ${viewMode === 'editor' ? styles.viewBtnActive : ''}`}
+          onClick={() => onViewModeChange('editor')}
+          title="Editor only (Ctrl+1)"
+        >
+          Editor
+        </button>
+        <button
+          className={`${styles.viewBtn} ${viewMode === 'split' ? styles.viewBtnActive : ''}`}
+          onClick={() => onViewModeChange('split')}
+          title="Split view (Ctrl+2)"
+        >
+          Split
+        </button>
+        <button
+          className={`${styles.viewBtn} ${viewMode === 'preview' ? styles.viewBtnActive : ''}`}
+          onClick={() => onViewModeChange('preview')}
+          title="Preview only (Ctrl+3)"
+        >
+          Preview
+        </button>
+      </div>
+
+      <div className={styles.divider} />
+
+      <button className={`${styles.btn} ${tocOpen ? styles.btnActive : ''}`} onClick={onToggleToc} title="Toggle Table of Contents (Ctrl+\\)">
+        TOC
+      </button>
+
+      <button className={styles.btn} onClick={onOpenFile} title="Open file (Ctrl+O)">
+        Open
+      </button>
+
+      <button className={styles.btn} onClick={onExportPdf} title="Export as PDF">
+        PDF
+      </button>
+      <button className={styles.btn} onClick={onExportHtml} title="Export as HTML">
+        HTML
+      </button>
+    </header>
+  );
+}

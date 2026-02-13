@@ -1,0 +1,14 @@
+.editor {
+  height: 100%;
+  overflow: auto;
+}
+
+.editor :global(.cm-editor) {
+  height: 100%;
+}
+
+.editor :global(.cm-scroller) {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+}

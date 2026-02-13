@@ -1,0 +1,11 @@
+.preview {
+  height: 100%;
+  overflow: auto;
+  padding: 24px 32px;
+  background: var(--color-bg);
+}
+
+.preview :global(.markdown-body) {
+  max-width: 980px;
+  margin: 0 auto;
+}
