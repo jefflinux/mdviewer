@@ -24,7 +24,7 @@ export function Header({
 }: HeaderProps) {
   return (
     <header className={styles.header}>
-      <span className={styles.logo}>MD Viewer</span>
+      <span className={styles.logo}>MD Viewer <span className={styles.version}>v{__APP_VERSION__}</span></span>
       <span className={styles.filename}>{filename}</span>
       <div className={styles.spacer} />
 
