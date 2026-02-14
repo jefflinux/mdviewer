@@ -1,7 +1,8 @@
+import GithubSlugger from 'github-slugger';
 import type { HeadingItem } from '../types';
-import { slugify } from './slugify';
 
 export function extractHeadings(markdown: string): HeadingItem[] {
+  const slugger = new GithubSlugger();
   const headings: HeadingItem[] = [];
   const lines = markdown.split('\n');
   let inCodeBlock = false;
@@ -18,7 +19,7 @@ export function extractHeadings(markdown: string): HeadingItem[] {
       const level = match[1].length;
       const text = match[2].replace(/[*_`~]/g, '').trim();
       headings.push({
-        id: slugify(text),
+        id: slugger.slug(text),
         text,
         level,
       });
