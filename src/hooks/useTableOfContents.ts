@@ -8,6 +8,7 @@ export function useTableOfContents(content: string) {
   const headings: HeadingItem[] = useMemo(() => extractHeadings(content), [content]);
 
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
+  const close = useCallback(() => setIsOpen(false), []);
 
   const scrollToHeading = useCallback((id: string) => {
     const el = document.getElementById(id);
@@ -16,5 +17,5 @@ export function useTableOfContents(content: string) {
     }
   }, []);
 
-  return { headings, isOpen, toggle, scrollToHeading };
+  return { headings, isOpen, toggle, close, scrollToHeading };
 }

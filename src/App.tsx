@@ -14,7 +14,7 @@ import './styles/variables.css';
 function App() {
   const { content, filename, updateContent, loadFile } = useMarkdown();
   const [viewMode, setViewMode] = useState<ViewMode>('split');
-  const { headings, isOpen: tocOpen, toggle: toggleToc, scrollToHeading } = useTableOfContents(content);
+  const { headings, isOpen: tocOpen, toggle: toggleToc, close: closeToc, scrollToHeading } = useTableOfContents(content);
   const { previewRef, handleExportPdf, handleExportHtml } = useExport(filename);
   const { isDragging, openFile, handleDragOver, handleDragLeave, handleDrop } = useFileHandler({
     onLoad: loadFile,
@@ -54,14 +54,17 @@ function App() {
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 768px)');
     const handle = (e: MediaQueryListEvent | MediaQueryList) => {
-      if (e.matches && viewMode === 'split') {
-        setViewMode('editor');
+      if (e.matches) {
+        if (viewMode === 'split') {
+          setViewMode('editor');
+        }
+        closeToc();
       }
     };
     handle(mq);
     mq.addEventListener('change', handle);
     return () => mq.removeEventListener('change', handle);
-  }, [viewMode]);
+  }, [viewMode, closeToc]);
 
   return (
     <div
@@ -86,6 +89,7 @@ function App() {
           headings={headings}
           isOpen={tocOpen}
           onScrollTo={scrollToHeading}
+          onClose={closeToc}
         />
         <SplitPane
           viewMode={viewMode}

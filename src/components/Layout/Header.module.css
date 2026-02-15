@@ -98,7 +98,60 @@
 }
 
 @media (max-width: 768px) {
+  .header {
+    gap: 4px;
+    padding: 0 8px;
+  }
+
+  .logo {
+    font-size: 14px;
+    margin-right: 4px;
+  }
+
   .filename {
     display: none;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    min-height: 36px;
+  }
+
+  .viewToggle {
+    flex-shrink: 0;
+  }
+
+  .viewBtn {
+    padding: 4px 8px;
+    font-size: 12px;
+    min-height: 36px;
+  }
+
+  .viewBtn .fullLabel {
+    display: none;
+  }
+
+  .viewBtn .shortLabel {
+    display: inline;
+  }
+
+  /* Hide split button on mobile */
+  .viewBtnSplit {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .viewBtn .shortLabel {
+    display: none;
+  }
+
+  .viewBtn .fullLabel {
+    display: inline;
   }
 }

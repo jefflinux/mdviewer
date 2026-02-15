@@ -34,21 +34,24 @@ export function Header({
           onClick={() => onViewModeChange('editor')}
           title="Editor only (Ctrl+1)"
         >
-          Editor
+          <span className={styles.fullLabel}>Editor</span>
+          <span className={styles.shortLabel}>E</span>
         </button>
         <button
-          className={`${styles.viewBtn} ${viewMode === 'split' ? styles.viewBtnActive : ''}`}
+          className={`${styles.viewBtn} ${styles.viewBtnSplit} ${viewMode === 'split' ? styles.viewBtnActive : ''}`}
           onClick={() => onViewModeChange('split')}
           title="Split view (Ctrl+2)"
         >
-          Split
+          <span className={styles.fullLabel}>Split</span>
+          <span className={styles.shortLabel}>S</span>
         </button>
         <button
           className={`${styles.viewBtn} ${viewMode === 'preview' ? styles.viewBtnActive : ''}`}
           onClick={() => onViewModeChange('preview')}
           title="Preview only (Ctrl+3)"
         >
-          Preview
+          <span className={styles.fullLabel}>Preview</span>
+          <span className={styles.shortLabel}>P</span>
         </button>
       </div>
 
