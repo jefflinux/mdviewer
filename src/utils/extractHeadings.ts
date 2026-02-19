@@ -4,7 +4,7 @@ import type { HeadingItem } from '../types';
 export function extractHeadings(markdown: string): HeadingItem[] {
   const slugger = new GithubSlugger();
   const headings: HeadingItem[] = [];
-  const lines = markdown.split('\n');
+  const lines = markdown.split(/\r?\n/);
   let inCodeBlock = false;
 
   for (const line of lines) {
