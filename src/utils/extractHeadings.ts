@@ -31,9 +31,5 @@ export function extractHeadings(markdown: string): HeadingItem[] {
     }
   }
 
-  if (headings.length === 0 && lines.length > 10) {
-    console.warn('[extractHeadings] No headings found in', lines.length, 'lines. First line:', JSON.stringify(lines[0]?.substring(0, 80)));
-  }
-
   return headings;
 }
