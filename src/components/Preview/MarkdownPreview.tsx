@@ -50,7 +50,8 @@ export const MarkdownPreview = forwardRef<HTMLDivElement, MarkdownPreviewProps>(
                       href={href}
                       onClick={(e) => {
                         e.preventDefault();
-                        const el = document.getElementById(href.slice(1));
+                        const id = decodeURIComponent(href.slice(1));
+                        const el = document.getElementById(id);
                         if (el) {
                           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
