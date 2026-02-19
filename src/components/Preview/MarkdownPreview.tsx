@@ -1,4 +1,4 @@
-import { forwardRef, type MouseEvent } from 'react';
+import { forwardRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -36,15 +36,6 @@ interface MarkdownPreviewProps {
 
 export const MarkdownPreview = forwardRef<HTMLDivElement, MarkdownPreviewProps>(
   ({ content }, ref) => {
-    const handleHashClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-      e.preventDefault();
-      const id = href.slice(1);
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    };
-
     return (
       <div className={styles.preview}>
         <div ref={ref} className="markdown-body">
@@ -52,12 +43,18 @@ export const MarkdownPreview = forwardRef<HTMLDivElement, MarkdownPreviewProps>(
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw, [rehypeSanitize, sanitizeSchema], rehypeSlug, rehypeNormalizeIds]}
             components={{
-              a({ href, children, ...props }) {
+              a({ href, children, node, ...props }) {
                 if (href && href.startsWith('#')) {
                   return (
                     <a
                       href={href}
-                      onClick={(e) => handleHashClick(e, href)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const el = document.getElementById(href.slice(1));
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
                       {...props}
                     >
                       {children}
