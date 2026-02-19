@@ -1,5 +1,6 @@
 import GithubSlugger from 'github-slugger';
 import type { HeadingItem } from '../types';
+import { normalizeSlug } from './normalizeSlug';
 
 export function extractHeadings(markdown: string): HeadingItem[] {
   const slugger = new GithubSlugger();
@@ -19,7 +20,7 @@ export function extractHeadings(markdown: string): HeadingItem[] {
       const level = match[1].length;
       const text = match[2].replace(/[*_`~]/g, '').trim();
       headings.push({
-        id: slugger.slug(text),
+        id: normalizeSlug(slugger.slug(text)),
         text,
         level,
       });
