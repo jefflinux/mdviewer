@@ -5,7 +5,13 @@ import { extractHeadings } from '../utils/extractHeadings';
 export function useTableOfContents(content: string) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const headings: HeadingItem[] = useMemo(() => extractHeadings(content), [content]);
+  const headings: HeadingItem[] = useMemo(() => {
+    const result = extractHeadings(content);
+    if (content.length > 100 && result.length === 0) {
+      console.warn('[useTableOfContents] 0 headings for content length:', content.length);
+    }
+    return result;
+  }, [content]);
 
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
   const close = useCallback(() => setIsOpen(false), []);

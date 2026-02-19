@@ -68,7 +68,7 @@ export const MarkdownPreview = forwardRef<HTMLDivElement, MarkdownPreviewProps>(
                   </a>
                 );
               },
-              code({ className, children, ...props }) {
+              code({ className, children, node, ...props }) {
                 const isInline = !className;
                 if (isInline) {
                   return <code {...props}>{children}</code>;
