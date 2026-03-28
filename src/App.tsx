@@ -51,6 +51,36 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
+  // Load content from URL hash: #base64=<encoded>&name=<filename>
+  const loadFromHash = useCallback(() => {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    const b64Match = hash.match(/base64=([^&]*)/);
+    if (b64Match) {
+      try {
+        const text = new TextDecoder().decode(
+          Uint8Array.from(atob(b64Match[1]), c => c.charCodeAt(0))
+        );
+        const nameMatch = hash.match(/name=([^&]*)/);
+        const name = nameMatch ? decodeURIComponent(nameMatch[1]) : 'untitled.md';
+        loadFile(name, text);
+        setViewMode('preview');
+        window.history.replaceState(null, '', window.location.pathname);
+      } catch {
+        // ignore invalid base64
+      }
+    }
+  }, [loadFile]);
+
+  useEffect(() => {
+    loadFromHash();
+  }, [loadFromHash]);
+
+  useEffect(() => {
+    window.addEventListener('hashchange', loadFromHash);
+    return () => window.removeEventListener('hashchange', loadFromHash);
+  }, [loadFromHash]);
+
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 768px)');
     const handle = (e: MediaQueryListEvent | MediaQueryList) => {
